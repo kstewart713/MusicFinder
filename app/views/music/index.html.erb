@@ -1,3 +1,40 @@
 <h1>Music Finder</h1>
 
-<p>Choose a year, artist or category to begin</p>
+<p> Date.today.in_time_zone <p>
+<p> Choose an option: <p>
+
+<p> Search <p>
+<%= form_tag("/search", method: "get") do %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<p> Choose by year <p>
+<%= f.date_select :exp_date, :start_year=>1916,:end_year=>2008 %>
+
+<p> Choose by artist <p>
+
+<p> Choose by category <p>
+<select name="category" id="category">
+  <option value="1">Heartbreak</option>
+  <option value="2">Life & Death</option>
+  <option value="3">Love</option>
+  <option value="4">Party songs</option>
+  <option value="5">People & Places</option>
+  <option value="6">Politics and Protest</option>
+  <option value="7">Sex</option>
+</select>
+
+<p> Pick at random <p>
+def pick_random_line
+  chosen_line = nil
+  File.foreach("MusicFinder.csv").each_with_index do |line, number|
+    chosen_line = line if rand < 1.0/(number+1)
+  end
+  return chosen_line
+end
+
+# For each song - example The Look of Love using Spotify link from database
+# <iframe src="https://embed.spotify.com/?uri=spotify%3Atrack%3A78j3qTBdzcIiT3eS7XymoD" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+
